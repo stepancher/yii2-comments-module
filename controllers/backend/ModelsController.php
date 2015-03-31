@@ -24,32 +24,10 @@ class ModelsController extends Controller
     {
         $behaviors = parent::behaviors();
 
-        $behaviors['access']['rules'] = [
-            [
-                'allow' => true,
-                'actions' => ['index'],
-                'roles' => ['BViewCommentsModels']
-            ]
-        ];
         $behaviors['access']['rules'][] = [
             'allow' => true,
-            'actions' => ['create'],
-            'roles' => ['BCreateCommentsModels']
-        ];
-        $behaviors['access']['rules'][] = [
-            'allow' => true,
-            'actions' => ['update'],
-            'roles' => ['BUpdateCommentsModels']
-        ];
-        $behaviors['access']['rules'][] = [
-            'allow' => true,
-            'actions' => ['delete', 'batch-delete'],
-            'roles' => ['BDeleteCommentsModels']
-        ];
-        $behaviors['access']['rules'][] = [
-            'allow' => true,
-            'actions' => ['enable', 'disable'],
-            'roles' => ['BManageCommentsModule']
+            'actions' => ['index','update','create','delete', 'batch-delete','enable', 'disable'],
+            'roles' => ['admin']
         ];
         $behaviors['verbs'] = [
             'class' => VerbFilter::className(),

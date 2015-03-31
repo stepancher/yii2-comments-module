@@ -14,14 +14,14 @@ use yii\helpers\Url;
 <?php if ($models !== null) : ?>
     <?php foreach ($models as $comment) : ?>
         <div class="media" data-comment="parent" data-comment-id="<?= $comment->id ?>">
-            <?php $avatar = $comment->author->profile->avatar_url ? $comment->author->profile->urlAttribute('avatar_url') : Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/blog/avatar3.png')[1]; ?>
+            <?php $avatar = $comment->author->profile->avatar ? $comment->author->profile->urlAttribute('avatar_url') : Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/blog/avatar3.png')[1]; ?>
             <div class="pull-left">
-                <img src="<?= $avatar ?>" class="avatar img-circle width-50" alt="<?= $comment->author->profile->fullName ?>"/>
+                <img src="<?= $avatar ?>" class="avatar img-circle width-50" alt="<?= $comment->author->username ?>"/>
             </div>
             <div class="media-body">
                 <div class="well" data-comment="append">
                     <div class="media-heading">
-                        <strong><?= $comment->author->profile->fullName ?></strong>&nbsp;
+                        <strong><?= $comment->author->username ?></strong>&nbsp;
                         <small><?= $comment->created ?></small>
                         <?php if ($comment->parent_id) { ?>
                             &nbsp;
@@ -34,7 +34,7 @@ use yii\helpers\Url;
                                         <i class="icon-repeat"></i> <?= Module::t('comments', 'FRONTEND_WIDGET_COMMENTS_REPLY') ?>
                                     </a>
                                 <?php } ?>
-                                <?php if (Yii::$app->user->can('updateComments') || Yii::$app->user->can('updateOwnComments', ['model' => $comment])) { ?>
+                                <?php if (Yii::$app->user->can('updateComments')) { ?>
                                     &nbsp;
                                     <a href="#" data-comment="update" data-comment-id="<?= $comment->id ?>" data-comment-url="<?= Url::to([
                                         '/comments/default/update',
@@ -43,7 +43,7 @@ use yii\helpers\Url;
                                         <i class="icon-pencil"></i> <?= Module::t('comments', 'FRONTEND_WIDGET_COMMENTS_UPDATE') ?>
                                     </a>
                                 <?php } ?>
-                                <?php if (Yii::$app->user->can('deleteComments') || Yii::$app->user->can('deleteOwnComments', ['model' => $comment])) { ?>
+                                <?php if (Yii::$app->user->can('deleteComments')) { ?>
                                     &nbsp;
                                     <a href="#" data-comment="delete" data-comment-id="<?= $comment->id ?>" data-comment-url="<?= Url::to([
                                         '/comments/default/delete',

@@ -107,15 +107,15 @@ $gridConfig = [
 $boxButtons = $actions = [];
 $showActions = false;
 
-if (Yii::$app->user->can('BUpdateComments')) {
-    $actions[] = '{update}';
-    $showActions = $showActions || true;
-}
-if (Yii::$app->user->can('BDeleteComments')) {
-    $boxButtons[] = '{batch-delete}';
-    $actions[] = '{delete}';
-    $showActions = $showActions || true;
-}
+
+$actions[] = '{update}';
+$showActions = $showActions || true;
+
+
+$boxButtons[] = '{batch-delete}';
+$actions[] = '{delete}';
+$showActions = $showActions || true;
+
 
 if ($showActions === true) {
     $gridConfig['columns'][] = [

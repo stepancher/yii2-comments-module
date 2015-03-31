@@ -23,7 +23,7 @@ class DefaultController extends Controller
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-
+/*
         $behaviors['access']['rules'] = [
             [
                 'allow' => true,
@@ -35,11 +35,11 @@ class DefaultController extends Controller
             'allow' => true,
             'actions' => ['update'],
             'roles' => ['BUpdateComments']
-        ];
+        ];*/
         $behaviors['access']['rules'][] = [
             'allow' => true,
-            'actions' => ['delete', 'batch-delete'],
-            'roles' => ['BDeleteComments']
+            'actions' => ['index','update','delete', 'batch-delete'],
+            'roles' => ['admin']
         ];
         $behaviors['verbs'] = [
             'class' => VerbFilter::className(),

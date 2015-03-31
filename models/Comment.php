@@ -3,7 +3,7 @@
 namespace vova07\comments\models;
 
 use vova07\comments\Module;
-use vova07\users\models\frontend\User;
+use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;

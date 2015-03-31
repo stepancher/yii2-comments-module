@@ -37,51 +37,51 @@ $gridConfig = [
             'attribute' => 'status_id',
             'format' => 'html',
             'value' => function ($model) {
-                    $class = ($model->status_id === $model::STATUS_ENABLED) ? 'label-success' : 'label-danger';
+                $class = ($model->status_id === $model::STATUS_ENABLED) ? 'label-success' : 'label-danger';
 
-                    return '<span class="label ' . $class . '">' . $model->status . '</span>';
-                },
+                return '<span class="label ' . $class . '">' . $model->status . '</span>';
+            },
             'filter' => Html::activeDropDownList(
-                    $searchModel,
-                    'status_id',
-                    $statusArray,
-                    [
-                        'class' => 'form-control',
-                        'prompt' => Module::t('comments', 'BACKEND_PROMPT_STATUS')
-                    ]
-                )
+                $searchModel,
+                'status_id',
+                $statusArray,
+                [
+                    'class' => 'form-control',
+                    'prompt' => Module::t('comments', 'BACKEND_PROMPT_STATUS')
+                ]
+            )
         ],
         [
             'attribute' => 'created_at',
             'format' => 'date',
             'filter' => DatePicker::widget(
-                    [
-                        'model' => $searchModel,
-                        'attribute' => 'created_at',
-                        'options' => [
-                            'class' => 'form-control'
-                        ],
-                        'clientOptions' => [
-                            'dateFormat' => 'dd.mm.yy',
-                        ]
+                [
+                    'model' => $searchModel,
+                    'attribute' => 'created_at',
+                    'options' => [
+                        'class' => 'form-control'
+                    ],
+                    'clientOptions' => [
+                        'dateFormat' => 'dd.mm.yy',
                     ]
-                )
+                ]
+            )
         ],
         [
             'attribute' => 'updated_at',
             'format' => 'date',
             'filter' => DatePicker::widget(
-                    [
-                        'model' => $searchModel,
-                        'attribute' => 'updated_at',
-                        'options' => [
-                            'class' => 'form-control'
-                        ],
-                        'clientOptions' => [
-                            'dateFormat' => 'dd.mm.yy',
-                        ]
+                [
+                    'model' => $searchModel,
+                    'attribute' => 'updated_at',
+                    'options' => [
+                        'class' => 'form-control'
+                    ],
+                    'clientOptions' => [
+                        'dateFormat' => 'dd.mm.yy',
                     ]
-                )
+                ]
+            )
         ]
     ]
 ];
@@ -89,18 +89,15 @@ $gridConfig = [
 $boxButtons = $actions = [];
 $showActions = false;
 
-if (Yii::$app->user->can('BCreateCommentsModels')) {
-    $boxButtons[] = '{create}';
-}
-if (Yii::$app->user->can('BUpdateCommentsModels')) {
-    $actions[] = '{update}';
-    $showActions = $showActions || true;
-}
-if (Yii::$app->user->can('BDeleteCommentsModels')) {
-    $boxButtons[] = '{batch-delete}';
-    $actions[] = '{delete}';
-    $showActions = $showActions || true;
-}
+
+$boxButtons[] = '{create}';
+
+$actions[] = '{update}';
+$showActions = $showActions || true;
+$boxButtons[] = '{batch-delete}';
+$actions[] = '{delete}';
+$showActions = $showActions || true;
+
 
 if ($showActions === true) {
     $gridConfig['columns'][] = [
@@ -110,89 +107,88 @@ if ($showActions === true) {
 }
 $boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null; ?>
 
-<?php if (Yii::$app->user->can('BManageCommentsModule')) : ?>
-    <div class="row">
-        <div class="col-sm-12">
-            <?php Box::begin(
-                [
-                    'title' => Module::t('comments-models', 'BACKEND_INDEX_TITLE_ENABLING'),
-                    'options' => [
-                        'class' => 'box-primary'
-                    ]
+
+<div class="row">
+    <div class="col-sm-12">
+        <?php Box::begin(
+            [
+                'title' => Module::t('comments-models', 'BACKEND_INDEX_TITLE_ENABLING'),
+                'options' => [
+                    'class' => 'box-primary'
                 ]
-            ); ?>
-            <?php if (Yii::$app->base->hasExtension('blogs')) : ?>
-                <?php if (Model::isExtensionEnabled('blogs')) : ?>
-                    <?= Html::a(
-                        Html::tag(
-                            'span',
-                            Html::tag(
-                                'i',
-                                '',
-                                [
-                                    'class' => 'fa fa-check'
-                                ]
-                            ),
-                            [
-                                'class' => 'badge bg-green'
-                            ]
-                        ) .
+            ]
+        ); ?>
+        <?php if (Yii::$app->base->hasExtension('blogs')) : ?>
+            <?php if (Model::isExtensionEnabled('blogs')) : ?>
+                <?= Html::a(
+                    Html::tag(
+                        'span',
                         Html::tag(
                             'i',
                             '',
                             [
-                                'class' => 'fa fa-book'
+                                'class' => 'fa fa-check'
                             ]
-                        ) .
-                        Module::t('comments-models', 'BACKEND_INDEX_MODULE_BLOGS'),
+                        ),
                         [
-                            '/comments/models/disable',
-                            'name' => 'blogs'
-                        ],
-                        [
-                            'class' => 'btn btn-app',
-                            'data-method' => 'post',
-                            'data-confirm' => Module::t('comments-models', 'BACKEND_INDEX_MODULES_DISABLE_CONFIRMATION')
+                            'class' => 'badge bg-green'
                         ]
-                    ) ?>
-                <?php else : ?>
-                    <?= Html::a(
-                        Html::tag(
-                            'span',
-                            Html::tag(
-                                'i',
-                                '',
-                                [
-                                    'class' => 'fa fa-times'
-                                ]
-                            ),
-                            [
-                                'class' => 'badge bg-red'
-                            ]
-                        ) .
+                    ) .
+                    Html::tag(
+                        'i',
+                        '',
+                        [
+                            'class' => 'fa fa-book'
+                        ]
+                    ) .
+                    Module::t('comments-models', 'BACKEND_INDEX_MODULE_BLOGS'),
+                    [
+                        '/comments/models/disable',
+                        'name' => 'blogs'
+                    ],
+                    [
+                        'class' => 'btn btn-app',
+                        'data-method' => 'post',
+                        'data-confirm' => Module::t('comments-models', 'BACKEND_INDEX_MODULES_DISABLE_CONFIRMATION')
+                    ]
+                ) ?>
+            <?php else : ?>
+                <?= Html::a(
+                    Html::tag(
+                        'span',
                         Html::tag(
                             'i',
                             '',
                             [
-                                'class' => 'fa fa-book'
+                                'class' => 'fa fa-times'
                             ]
-                        ) .
-                        Module::t('comments-models', 'BACKEND_INDEX_MODULE_BLOGS'),
+                        ),
                         [
-                            '/comments/models/enable',
-                            'name' => 'blogs'
-                        ],
-                        [
-                            'class' => 'btn btn-app',
-                            'data-method' => 'post'
+                            'class' => 'badge bg-red'
                         ]
-                    ) ?>
-                <?php endif; ?>
+                    ) .
+                    Html::tag(
+                        'i',
+                        '',
+                        [
+                            'class' => 'fa fa-book'
+                        ]
+                    ) .
+                    Module::t('comments-models', 'BACKEND_INDEX_MODULE_BLOGS'),
+                    [
+                        '/comments/models/enable',
+                        'name' => 'blogs'
+                    ],
+                    [
+                        'class' => 'btn btn-app',
+                        'data-method' => 'post'
+                    ]
+                ) ?>
             <?php endif; ?>
-            <?php Box::end(); ?>
-        </div>
+        <?php endif; ?>
+        <?php Box::end(); ?>
     </div>
-<?php endif; ?>
+</div>
 
 <div class="row">
     <div class="col-xs-12">
