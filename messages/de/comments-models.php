@@ -24,7 +24,7 @@ return [
     'ATTR_NAME' => 'Model',
     'ATTR_STATUS' => 'Status',
     'ATTR_UPDATED' => 'Updated date',
-    'BACKEND_CREATE_PLACEHOLDER_NAME' => 'vova07/blogs/models/Blog',
+    'BACKEND_CREATE_PLACEHOLDER_NAME' => 'stepancher/blogs/models/Blog',
     'BACKEND_CREATE_SUBMIT' => 'Speichern',
     'BACKEND_CREATE_SUBTITLE' => 'Model anlegen',
     'BACKEND_CREATE_TITLE' => 'Models',

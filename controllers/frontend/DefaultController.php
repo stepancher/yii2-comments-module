@@ -1,9 +1,9 @@
 <?php
 
-namespace vova07\comments\controllers\frontend;
+namespace stepancher\comments\controllers\frontend;
 
-use vova07\comments\models\frontend\Comment;
-use vova07\comments\Module;
+use stepancher\comments\models\frontend\Comment;
+use stepancher\comments\Module;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -134,6 +134,6 @@ class DefaultController extends Controller
     protected function tree($model)
     {
         $models = Comment::getTree($model->model_id, $model->model_class);
-        return $this->renderPartial('@vova07/comments/widgets/views/_index_item', ['models' => $models]);
+        return $this->renderPartial('@stepancher/comments/widgets/views/_index_item', ['models' => $models]);
     }
 }

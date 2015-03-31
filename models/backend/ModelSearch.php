@@ -1,6 +1,6 @@
 <?php
 
-namespace vova07\comments\models\backend;
+namespace stepancher\comments\models\backend;
 
 use yii\data\ActiveDataProvider;
 

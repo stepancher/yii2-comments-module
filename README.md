@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist vova07/yii2-start-comments-module "*"
+php composer.phar require --prefer-dist stepancher/yii2-comments-module "*"
 ```
 
 or add
 
 ```
-"vova07/yii2-start-comments-module": "*"
+"stepancher/yii2-comments-module": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -29,7 +29,7 @@ Configuration
 ```
 'modules' => [
     'comments' => [
-        'class' => 'vova07\comments\Module'
+        'class' => 'stepancher\comments\Module'
     ]
 ]
 ```
@@ -37,7 +37,7 @@ Configuration
 - Run migrations:
 
 ```
-php yii migrate --migrationPath=@vova07/comments/migrations
+php yii migrate --migrationPath=@stepancher/comments/migrations
 ```
 
 - Run RBAC command:
@@ -53,7 +53,7 @@ Usage:
 - Add `Comments` widget in your view file:
 
 ```
-echo \vova07\comments\widgets\Comments::widget(  
+echo \stepancher\comments\widgets\Comments::widget(
     [  
         'model' => $model,  
         'jsOptions' => [  

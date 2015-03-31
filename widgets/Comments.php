@@ -1,9 +1,9 @@
 <?php
 
-namespace vova07\comments\widgets;
+namespace stepancher\comments\widgets;
 
-use vova07\comments\Asset;
-use vova07\comments\models\frontend\Comment;
+use stepancher\comments\Asset;
+use stepancher\comments\models\frontend\Comment;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;

@@ -1,6 +1,6 @@
 <?php
 
-namespace vova07\comments\models\frontend;
+namespace stepancher\comments\models\frontend;
 
 use Yii;
 
@@ -19,10 +19,10 @@ use Yii;
  * @property string $created Human readable created time
  * @property string $updated Human readable updated time
  *
- * @property \vova07\users\models\User $author Author
+ * @property \stepancher\users\models\User $author Author
  * @property Model $model Model
  */
-class Comment extends \vova07\comments\models\Comment
+class Comment extends \stepancher\comments\models\Comment
 {
     /**
      * @var string Created date

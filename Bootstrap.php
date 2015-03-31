@@ -1,6 +1,6 @@
 <?php
 
-namespace vova07\comments;
+namespace stepancher\comments;
 
 use yii\base\BootstrapInterface;
 
@@ -24,23 +24,23 @@ class Bootstrap implements BootstrapInterface
         );
 
         // Add module I18N category.
-        if (!isset($app->i18n->translations['vova07/comments']) && !isset($app->i18n->translations['vova07/*'])) {
-            $app->i18n->translations['vova07/comments'] = [
+        if (!isset($app->i18n->translations['stepancher/comments']) && !isset($app->i18n->translations['stepancher/*'])) {
+            $app->i18n->translations['stepancher/comments'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
-                'basePath' => '@vova07/comments/messages',
+                'basePath' => '@stepancher/comments/messages',
                 'forceTranslation' => true,
                 'fileMap' => [
-                    'vova07/comments' => 'comments.php',
+                    'stepancher/comments' => 'comments.php',
                 ]
             ];
         }
-        if (!isset($app->i18n->translations['vova07/comments-models']) && !isset($app->i18n->translations['vova07/*'])) {
-            $app->i18n->translations['vova07/comments-models'] = [
+        if (!isset($app->i18n->translations['stepancher/comments-models']) && !isset($app->i18n->translations['stepancher/*'])) {
+            $app->i18n->translations['stepancher/comments-models'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
-                'basePath' => '@vova07/comments/messages',
+                'basePath' => '@stepancher/comments/messages',
                 'forceTranslation' => true,
                 'fileMap' => [
-                    'vova07/comments-models' => 'comments-models.php',
+                    'stepancher/comments-models' => 'comments-models.php',
                 ]
             ];
         }

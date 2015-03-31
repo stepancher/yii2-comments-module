@@ -4,10 +4,10 @@
  * Comments widget form view.
  * @var \yii\web\View $this View
  * @var \yii\widgets\ActiveForm $form Form
- * @var \vova07\comments\models\frontend\Comment $model New comment model
+ * @var \stepancher\comments\models\frontend\Comment $model New comment model
  */
 
-use vova07\comments\Module;
+use stepancher\comments\Module;
 use yii\helpers\Html;
 
 ?>

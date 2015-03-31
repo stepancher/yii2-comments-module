@@ -5,12 +5,12 @@
  *
  * @var \yii\base\View $this View
  * @var \yii\widgets\ActiveForm $form Form
- * @var \vova07\comments\models\backend\Comment $model Model
- * @var \vova07\themes\admin\widgets\Box $box Box widget instance
+ * @var \stepancher\comments\models\backend\Comment $model Model
+ * @var \stepancher\themes\admin\widgets\Box $box Box widget instance
  * @var array $statusArray Statuses array
  */
 
-use vova07\comments\Module;
+use stepancher\comments\Module;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 

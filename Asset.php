@@ -1,6 +1,6 @@
 <?php
 
-namespace vova07\comments;
+namespace stepancher\comments;
 
 use yii\web\AssetBundle;
 
@@ -12,7 +12,7 @@ class Asset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@vova07/comments/assets';
+    public $sourcePath = '@stepancher/comments/assets';
 
     /**
      * @inheritdoc

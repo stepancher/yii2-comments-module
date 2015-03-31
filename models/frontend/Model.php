@@ -1,6 +1,6 @@
 <?php
 
-namespace vova07\comments\models\frontend;
+namespace stepancher\comments\models\frontend;
 
 /**
  * This is the model class for table "{{%comments_models}}".
@@ -13,6 +13,6 @@ namespace vova07\comments\models\frontend;
  *
  * @property Comments[] $comments Comments
  */
-class Model extends \vova07\comments\models\Model
+class Model extends \stepancher\comments\models\Model
 {
 }

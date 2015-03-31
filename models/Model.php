@@ -1,8 +1,8 @@
 <?php
 
-namespace vova07\comments\models;
+namespace stepancher\comments\models;
 
-use vova07\comments\Module;
+use stepancher\comments\Module;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;

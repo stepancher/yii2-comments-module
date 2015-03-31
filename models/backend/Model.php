@@ -1,6 +1,6 @@
 <?php
 
-namespace vova07\comments\models\backend;
+namespace stepancher\comments\models\backend;
 
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property Comment[] $comments Comments
  */
-class Model extends \vova07\comments\models\Model
+class Model extends \stepancher\comments\models\Model
 {
     /**
      * @var array|null Installed extension array
@@ -27,7 +27,7 @@ class Model extends \vova07\comments\models\Model
      * @var array Allowed extensions name
      */
     public static $extensions = [
-        'blogs' => 'vova07\blogs\models\frontend\Blog'
+        'blogs' => 'stepancher\blogs\models\frontend\Blog'
     ];
 
     /**

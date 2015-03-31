@@ -24,7 +24,7 @@ return [
 	'ATTR_NAME' => 'Model',
 	'ATTR_STATUS' => 'Status',
 	'ATTR_UPDATED' => 'Atualizado em',
-	'BACKEND_CREATE_PLACEHOLDER_NAME' => 'vova07/blogs/models/Blog',
+	'BACKEND_CREATE_PLACEHOLDER_NAME' => 'stepancher/blogs/models/Blog',
 	'BACKEND_CREATE_SUBMIT' => 'Salvar',
 	'BACKEND_CREATE_SUBTITLE' => 'Criando model',
 	'BACKEND_CREATE_TITLE' => 'Models',

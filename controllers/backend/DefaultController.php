@@ -1,11 +1,11 @@
 <?php
 
-namespace vova07\comments\controllers\backend;
+namespace stepancher\comments\controllers\backend;
 
-use vova07\admin\components\Controller;
-use vova07\comments\models\backend\Comment;
-use vova07\comments\models\backend\CommentSearch;
-use vova07\comments\models\backend\Model;
+use stepancher\admin\components\Controller;
+use stepancher\comments\models\backend\Comment;
+use stepancher\comments\models\backend\CommentSearch;
+use stepancher\comments\models\backend\Model;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\HttpException;
@@ -142,17 +142,17 @@ class DefaultController extends Controller
      *
      * @param integer|array $id Comment ID
      *
-     * @return \vova07\comments\models\backend\Comment Model
+     * @return \stepancher\comments\models\backend\Comment Model
      *
      * @throws HttpException 404 error if comment not found
      */
     protected function findModel($id)
     {
         if (is_array($id)) {
-            /** @var \vova07\comments\models\backend\Comment $model */
+            /** @var \stepancher\comments\models\backend\Comment $model */
             $model = Comment::findAll($id);
         } else {
-            /** @var \vova07\comments\models\backend\Comment $model */
+            /** @var \stepancher\comments\models\backend\Comment $model */
             $model = Comment::findOne($id);
         }
         if ($model !== null) {

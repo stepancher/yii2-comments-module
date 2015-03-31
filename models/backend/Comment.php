@@ -1,6 +1,6 @@
 <?php
 
-namespace vova07\comments\models\backend;
+namespace stepancher\comments\models\backend;
 
 /**
  * This is the model class for table "{{%comments}}".
@@ -14,10 +14,10 @@ namespace vova07\comments\models\backend;
  * @property integer $created_at Create time
  * @property integer $updated_at Update time
  *
- * @property \vova07\users\models\User $author Author
+ * @property \stepancher\users\models\User $author Author
  * @property Model $model Model
  */
-class Comment extends \vova07\comments\models\Comment
+class Comment extends \stepancher\comments\models\Comment
 {
     /**
      * @inheritdoc

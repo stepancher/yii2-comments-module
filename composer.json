@@ -1,8 +1,8 @@
 {
-    "name": "stepancher/yii2-start-comments-module",
+    "name": "stepancher/yii2-comments-module",
     "description": "The comments module for Yii2 application.",
     "type": "yii2-extension",
-    "keywords": ["yii2", "comments", "module", "yii 2", "yii2-start"],
+    "keywords": ["yii2", "comments", "module", "yii 2"],
     "license": "BSD-3-Clause",
     "authors": [
         {

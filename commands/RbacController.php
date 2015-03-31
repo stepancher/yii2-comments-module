@@ -1,6 +1,6 @@
 <?php
 
-namespace vova07\comments\commands;
+namespace stepancher\comments\commands;
 
 use Yii;
 use yii\console\Controller;

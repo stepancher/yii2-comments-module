@@ -1,13 +1,13 @@
 <?php
 
-namespace vova07\comments;
+namespace stepancher\comments;
 
 use Yii;
 
 /**
  * Comments module.
  */
-class Module extends \vova07\base\components\Module
+class Module extends \stepancher\base\components\Module
 {
     /**
      * @inheritdoc

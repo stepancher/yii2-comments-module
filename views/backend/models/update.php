@@ -4,13 +4,13 @@
  * Comment model update view.
  *
  * @var \yii\base\View $this View
- * @var \vova07\comments\models\backend\Model $model Model
- * @var \vova07\themes\admin\widgets\Box $box Box widget instance
+ * @var \stepancher\comments\models\backend\Model $model Model
+ * @var \stepancher\themes\admin\widgets\Box $box Box widget instance
  * @var array $statusArray Statuses array
  */
 
-use vova07\comments\Module;
-use vova07\themes\admin\widgets\Box;
+use stepancher\comments\Module;
+use stepancher\themes\admin\widgets\Box;
 
 $this->title = Module::t('comments-models', 'BACKEND_UPDATE_TITLE');
 $this->params['subtitle'] = Module::t('comments-models', 'BACKEND_UPDATE_SUBTITLE');

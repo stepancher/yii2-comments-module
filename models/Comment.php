@@ -1,8 +1,8 @@
 <?php
 
-namespace vova07\comments\models;
+namespace stepancher\comments\models;
 
-use vova07\comments\Module;
+use stepancher\comments\Module;
 use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -20,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property integer $created_at Create time
  * @property integer $updated_at Update time
  *
- * @property \vova07\users\models\User $author Author
+ * @property \stepancher\users\models\User $author Author
  * @property Model $model Model
  */
 class Comment extends ActiveRecord

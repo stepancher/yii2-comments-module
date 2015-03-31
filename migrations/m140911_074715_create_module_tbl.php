@@ -5,7 +5,7 @@ use yii\db\Schema;
 
 /**
  * CLass m140911_074715_create_module_tbl
- * @package vova07\comments\migrations
+ * @package stepancher\comments\migrations
  *
  * Create module tables.
  *

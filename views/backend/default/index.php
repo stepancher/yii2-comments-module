@@ -5,14 +5,14 @@
  *
  * @var \yii\base\View $this View
  * @var \yii\data\ActiveDataProvider $dataProvider Data provider
- * @var \vova07\comments\models\backend\CommentSearch $searchModel Search model
+ * @var \stepancher\comments\models\backend\CommentSearch $searchModel Search model
  * @var array $statusArray Status array
  * @var array $modelArray Model array
  */
 
-use vova07\themes\admin\widgets\Box;
-use vova07\themes\admin\widgets\GridView;
-use vova07\comments\Module;
+use stepancher\themes\admin\widgets\Box;
+use stepancher\themes\admin\widgets\GridView;
+use stepancher\comments\Module;
 use yii\grid\ActionColumn;
 use yii\grid\CheckboxColumn;
 use yii\helpers\Html;

@@ -3,15 +3,15 @@
 /**
  * @var \yii\base\View $this View
  * @var \yii\data\ActiveDataProvider $dataProvider Data provider
- * @var \vova07\comments\models\backend\CommentSearch $searchModel Search model
+ * @var \stepancher\comments\models\backend\CommentSearch $searchModel Search model
  * @var array $statusArray Statuses array
  */
 
-use vova07\base\helpers\System;
-use vova07\comments\models\backend\Model;
-use vova07\comments\Module;
-use vova07\themes\admin\widgets\Box;
-use vova07\themes\admin\widgets\GridView;
+use stepancher\base\helpers\System;
+use stepancher\comments\models\backend\Model;
+use stepancher\comments\Module;
+use stepancher\themes\admin\widgets\Box;
+use stepancher\themes\admin\widgets\GridView;
 use yii\grid\ActionColumn;
 use yii\grid\CheckboxColumn;
 use yii\helpers\Html;
