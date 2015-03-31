@@ -12,6 +12,8 @@ use stepancher\comments\models\backend\Model;
 use stepancher\comments\Module;
 use stepancher\themes\admin\widgets\Box;
 use stepancher\themes\admin\widgets\GridView;
+use kartik\datetime\DateTimePicker;
+
 use yii\grid\ActionColumn;
 use yii\grid\CheckboxColumn;
 use yii\helpers\Html;
@@ -54,34 +56,10 @@ $gridConfig = [
         [
             'attribute' => 'created_at',
             'format' => 'date',
-            'filter' => DatePicker::widget(
-                [
-                    'model' => $searchModel,
-                    'attribute' => 'created_at',
-                    'options' => [
-                        'class' => 'form-control'
-                    ],
-                    'clientOptions' => [
-                        'dateFormat' => 'dd.mm.yy',
-                    ]
-                ]
-            )
         ],
         [
             'attribute' => 'updated_at',
             'format' => 'date',
-            'filter' => DatePicker::widget(
-                [
-                    'model' => $searchModel,
-                    'attribute' => 'updated_at',
-                    'options' => [
-                        'class' => 'form-control'
-                    ],
-                    'clientOptions' => [
-                        'dateFormat' => 'dd.mm.yy',
-                    ]
-                ]
-            )
         ]
     ]
 ];

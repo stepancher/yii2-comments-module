@@ -2,7 +2,6 @@
 
 namespace stepancher\comments\controllers\backend;
 
-use stepancher\admin\components\Controller;
 use stepancher\comments\models\backend\Model;
 use stepancher\comments\models\backend\ModelSearch;
 use stepancher\comments\Module;
@@ -11,40 +10,45 @@ use yii\filters\VerbFilter;
 use yii\web\HttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
-
+use yii\filters\AccessControl;
 /**
  * Comments models backend controller.
  */
-class ModelsController extends Controller
+class ModelsController extends \yii\web\Controller
 {
     /**
      * @inheritdoc
      */
+
     public function behaviors()
     {
-        $behaviors = parent::behaviors();
-
-        $behaviors['access']['rules'][] = [
-            'allow' => true,
-            'actions' => ['index','update','create','delete', 'batch-delete','enable', 'disable'],
-            'roles' => ['admin']
-        ];
-        $behaviors['verbs'] = [
-            'class' => VerbFilter::className(),
-            'actions' => [
-                'index' => ['get'],
-                'view' => ['get'],
-                'create' => ['get', 'post'],
-                'update' => ['get', 'put', 'post'],
-                'delete' => ['post', 'delete'],
-                'batch-delete' => ['post', 'delete'],
-                'enable' => ['post'],
-                'disable' => ['post']
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index','update','create','delete', 'batch-delete','enable', 'disable'],
+                        'roles' => ['admin']
+                    ]
+                ]
+            ],
+            'verbs' =>[
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'index' => ['get'],
+                    'view' => ['get'],
+                    'create' => ['get', 'post'],
+                    'update' => ['get', 'put', 'post'],
+                    'delete' => ['post', 'delete'],
+                    'batch-delete' => ['post', 'delete'],
+                    'enable' => ['post'],
+                    'disable' => ['post']
+                ]
             ]
         ];
-
-        return $behaviors;
     }
+
 
     /**
      * Comment models list page.
