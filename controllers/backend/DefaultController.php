@@ -2,7 +2,6 @@
 
 namespace stepancher\comments\controllers\backend;
 
-use stepancher\admin\components\Controller;
 use stepancher\comments\models\backend\Comment;
 use stepancher\comments\models\backend\CommentSearch;
 use stepancher\comments\models\backend\Model;
@@ -11,48 +10,42 @@ use yii\filters\VerbFilter;
 use yii\web\HttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
+use yii\filters\AccessControl;
 
 /**
  * Default backend controller.
  */
-class DefaultController extends Controller
+class DefaultController extends  \yii\web\Controller
 {
     /**
      * @inheritdoc
      */
     public function behaviors()
     {
-        $behaviors = parent::behaviors();
-/*
-        $behaviors['access']['rules'] = [
-            [
-                'allow' => true,
-                'actions' => ['index'],
-                'roles' => ['BViewComments']
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index','update','delete', 'batch-delete'],
+                        'roles' => ['admin']
+                    ]
+                ]
+            ],
+            'verbs' =>[
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'index' => ['get'],
+                    'update' => ['get', 'put', 'post'],
+                    'delete' => ['post', 'delete'],
+                    'batch-delete' => ['post', 'delete']
+                ]
             ]
         ];
-        $behaviors['access']['rules'][] = [
-            'allow' => true,
-            'actions' => ['update'],
-            'roles' => ['BUpdateComments']
-        ];*/
-        $behaviors['access']['rules'][] = [
-            'allow' => true,
-            'actions' => ['index','update','delete', 'batch-delete'],
-            'roles' => ['admin']
-        ];
-        $behaviors['verbs'] = [
-            'class' => VerbFilter::className(),
-            'actions' => [
-                'index' => ['get'],
-                'update' => ['get', 'put', 'post'],
-                'delete' => ['post', 'delete'],
-                'batch-delete' => ['post', 'delete']
-            ]
-        ];
-
-        return $behaviors;
     }
+
+
 
     /**
      * Comments list page.

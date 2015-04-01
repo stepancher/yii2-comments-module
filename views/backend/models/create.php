@@ -9,7 +9,7 @@
  */
 
 use stepancher\comments\Module;
-use stepancher\themes\admin\widgets\Box;
+use vova07\themes\admin\widgets\Box;
 
 $this->title = Module::t('comments-models', 'BACKEND_CREATE_TITLE');
 $this->params['subtitle'] = Module::t('comments-models', 'BACKEND_CREATE_SUBTITLE');
@@ -20,29 +20,17 @@ $this->params['breadcrumbs'] = [
     ],
     $this->params['subtitle']
 ]; ?>
-<div class="row">
-    <div class="col-sm-12">
-        <?php $box = Box::begin(
-            [
-                'title' => $this->params['subtitle'],
-                'renderBody' => false,
-                'options' => [
-                    'class' => 'box-primary'
-                ],
-                'bodyOptions' => [
-                    'class' => 'table-responsive'
-                ],
-                'buttonsTemplate' => '{cancel}',
-            ]
-        );
-        echo $this->render(
-            '_form',
-            [
-                'model' => $model,
-                'statusArray' => $statusArray,
-                'box' => $box
-            ]
-        );
-        Box::end(); ?>
+<div class="box">
+    <div class="row">
+        <div class="col-sm-4">
+            <?= $this->render(
+                '_form',
+                [
+                    'model' => $model,
+                    'statusArray' => $statusArray
+                ]
+            );?>
+
+        </div>
     </div>
 </div>

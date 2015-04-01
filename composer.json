@@ -12,7 +12,7 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-	"vova07/yii2-start-themes": "*"
+	    "vova07/yii2-start-themes": "*"
     },
     "autoload": {
         "psr-4": {

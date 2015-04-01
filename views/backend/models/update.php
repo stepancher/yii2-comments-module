@@ -21,38 +21,18 @@ $this->params['breadcrumbs'] = [
     ],
     $this->params['subtitle']
 ];
-$boxButtons = ['{cancel}'];
+?>
+<div class="box">
+    <div class="row">
+        <div class="col-sm-4">
+            <?= $this->render(
+                '_form',
+                [
+                    'model' => $model,
+                    'statusArray' => $statusArray
+                ]
+            );?>
 
-if (Yii::$app->user->can('BCreateCommentsModels')) {
-    $boxButtons[] = '{create}';
-}
-if (Yii::$app->user->can('BDeleteCommentsModels')) {
-    $boxButtons[] = '{delete}';
-}
-$boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null; ?>
-<div class="row">
-    <div class="col-sm-12">
-        <?php $box = Box::begin(
-            [
-                'title' => $this->params['subtitle'],
-                'renderBody' => false,
-                'options' => [
-                    'class' => 'box-success'
-                ],
-                'bodyOptions' => [
-                    'class' => 'table-responsive'
-                ],
-                'buttonsTemplate' => $boxButtons
-            ]
-        );
-        echo $this->render(
-            '_form',
-            [
-                'model' => $model,
-                'statusArray' => $statusArray,
-                'box' => $box
-            ]
-        );
-        Box::end(); ?>
+        </div>
     </div>
 </div>

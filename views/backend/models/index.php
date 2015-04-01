@@ -7,180 +7,68 @@
  * @var array $statusArray Statuses array
  */
 
-use stepancher\base\helpers\System;
-use stepancher\comments\models\backend\Model;
 use stepancher\comments\Module;
-use stepancher\themes\admin\widgets\Box;
-use stepancher\themes\admin\widgets\GridView;
-use kartik\datetime\DateTimePicker;
+use yii\grid\GridView;
 
 use yii\grid\ActionColumn;
-use yii\grid\CheckboxColumn;
 use yii\helpers\Html;
-use yii\jui\DatePicker;
 
 $this->title = Module::t('comments-models', 'BACKEND_INDEX_TITLE');
 $this->params['subtitle'] = Module::t('comments-models', 'BACKEND_INDEX_SUBTITLE');
 $this->params['breadcrumbs'] = [
     $this->title
 ];
-$gridId = 'comments-models-grid';
-$gridConfig = [
-    'id' => $gridId,
-    'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
-    'columns' => [
-        [
-            'class' => CheckboxColumn::classname()
-        ],
-        'id',
-        'name',
-        [
-            'attribute' => 'status_id',
-            'format' => 'html',
-            'value' => function ($model) {
-                $class = ($model->status_id === $model::STATUS_ENABLED) ? 'label-success' : 'label-danger';
 
-                return '<span class="label ' . $class . '">' . $model->status . '</span>';
-            },
-            'filter' => Html::activeDropDownList(
-                $searchModel,
-                'status_id',
-                $statusArray,
-                [
-                    'class' => 'form-control',
-                    'prompt' => Module::t('comments', 'BACKEND_PROMPT_STATUS')
-                ]
-            )
-        ],
-        [
-            'attribute' => 'created_at',
-            'format' => 'date',
-        ],
-        [
-            'attribute' => 'updated_at',
-            'format' => 'date',
-        ]
-    ]
-];
+?>
 
-$boxButtons = $actions = [];
-$showActions = false;
-
-
-$boxButtons[] = '{create}';
-
-$actions[] = '{update}';
-$showActions = $showActions || true;
-$boxButtons[] = '{batch-delete}';
-$actions[] = '{delete}';
-$showActions = $showActions || true;
-
-
-if ($showActions === true) {
-    $gridConfig['columns'][] = [
-        'class' => ActionColumn::className(),
-        'template' => implode(' ', $actions)
-    ];
-}
-$boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null; ?>
-
-
-<div class="row">
-    <div class="col-sm-12">
-        <?php Box::begin(
-            [
-                'title' => Module::t('comments-models', 'BACKEND_INDEX_TITLE_ENABLING'),
-                'options' => [
-                    'class' => 'box-primary'
-                ]
-            ]
-        ); ?>
-        <?php if (Yii::$app->base->hasExtension('blogs')) : ?>
-            <?php if (Model::isExtensionEnabled('blogs')) : ?>
-                <?= Html::a(
-                    Html::tag(
-                        'span',
-                        Html::tag(
-                            'i',
-                            '',
-                            [
-                                'class' => 'fa fa-check'
-                            ]
-                        ),
-                        [
-                            'class' => 'badge bg-green'
-                        ]
-                    ) .
-                    Html::tag(
-                        'i',
-                        '',
-                        [
-                            'class' => 'fa fa-book'
-                        ]
-                    ) .
-                    Module::t('comments-models', 'BACKEND_INDEX_MODULE_BLOGS'),
-                    [
-                        '/comments/models/disable',
-                        'name' => 'blogs'
-                    ],
-                    [
-                        'class' => 'btn btn-app',
-                        'data-method' => 'post',
-                        'data-confirm' => Module::t('comments-models', 'BACKEND_INDEX_MODULES_DISABLE_CONFIRMATION')
-                    ]
-                ) ?>
-            <?php else : ?>
-                <?= Html::a(
-                    Html::tag(
-                        'span',
-                        Html::tag(
-                            'i',
-                            '',
-                            [
-                                'class' => 'fa fa-times'
-                            ]
-                        ),
-                        [
-                            'class' => 'badge bg-red'
-                        ]
-                    ) .
-                    Html::tag(
-                        'i',
-                        '',
-                        [
-                            'class' => 'fa fa-book'
-                        ]
-                    ) .
-                    Module::t('comments-models', 'BACKEND_INDEX_MODULE_BLOGS'),
-                    [
-                        '/comments/models/enable',
-                        'name' => 'blogs'
-                    ],
-                    [
-                        'class' => 'btn btn-app',
-                        'data-method' => 'post'
-                    ]
-                ) ?>
-            <?php endif; ?>
-        <?php endif; ?>
-        <?php Box::end(); ?>
+<div class="page-header">
+    <div class="panel-heading-controls">
+        <?= Html::a('<i class="btn-label icon fa fa-plus"></i> '.Module::t('comments-models','BACKEND_CREATE_SUBTITLE'), ['create'], ['class' => 'btn btn-labeled btn-primary no-margin-t']) ?>
     </div>
 </div>
+<div class="box">
+    <div class="row">
+        <div class="col-xs-12">
+            <?= GridView::widget([
+                'id' => 'comments-models-grid',
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'layout' => "<div class='box-body'>{items}</div><div class='box-footer'><div class='row'><div class='col-sm-6'>{summary}</div><div class='col-sm-6'>{pager}</div></div></div>",
+                'columns' => [
+                    'id',
+                    'name',
+                    [
+                        'attribute' => 'status_id',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            $class = ($model->status_id === $model::STATUS_ENABLED) ? 'label-success' : 'label-danger';
 
-<div class="row">
-    <div class="col-xs-12">
-        <?php Box::begin(
-            [
-                'title' => $this->params['subtitle'],
-                'bodyOptions' => [
-                    'class' => 'table-responsive'
-                ],
-                'buttonsTemplate' => $boxButtons,
-                'grid' => $gridId
-            ]
-        ); ?>
-        <?= GridView::widget($gridConfig); ?>
-        <?php Box::end(); ?>
+                            return '<span class="label ' . $class . '">' . $model->status . '</span>';
+                        },
+                        'filter' => Html::activeDropDownList(
+                            $searchModel,
+                            'status_id',
+                            $statusArray,
+                            [
+                                'class' => 'form-control',
+                                'prompt' => Module::t('comments', 'BACKEND_PROMPT_STATUS')
+                            ]
+                        )
+                    ],
+                    [
+                        'attribute' => 'created_at',
+                        'format' => 'date',
+                    ],
+                    [
+                        'attribute' => 'updated_at',
+                        'format' => 'date',
+                    ],
+                    [
+                        'class' =>ActionColumn::className(),
+                        'template' => '{update}{delete}',
+                    ],
+                ]
+            ]); ?>
+        </div>
     </div>
 </div>
