@@ -14,13 +14,15 @@ class Asset extends AssetBundle
      */
     public $sourcePath = '@stepancher/comments/assets';
 
+    public $css = [
+        'css/comments.css',
+    ];
     /**
      * @inheritdoc
      */
     public $js = [
         'js/comments.js'
     ];
-
     /**
      * @inheritdoc
      */

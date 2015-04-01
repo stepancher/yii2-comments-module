@@ -58,8 +58,7 @@ class Model extends ActiveRecord
      */
     public static function findIdentity($id)
     {
-        $id = is_numeric($id) ? $id : Yii::$app->base->crc32($id);
-
+        $id = is_numeric($id) ? $id : sprintf("%u", crc32($id));
         return self::findOne($id);
     }
 
@@ -133,7 +132,7 @@ class Model extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $this->id = Yii::$app->base->crc32($this->name);
+            $this->id = sprintf("%u", crc32($this->name));
 
             return true;
         } else {

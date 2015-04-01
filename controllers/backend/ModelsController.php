@@ -77,7 +77,7 @@ class ModelsController extends \yii\web\Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->save(false)) {
-                    return $this->redirect(['update', 'id' => $model->id]);
+                    return $this->redirect(['index']);
                 } else {
                     Yii::$app->session->setFlash('danger', Module::t('comments-models', 'BACKEND_FLASH_FAIL_ADMIN_CREATE'));
                     return $this->refresh();
@@ -110,7 +110,7 @@ class ModelsController extends \yii\web\Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->save(false)) {
-                    return $this->refresh();
+                    return $this->redirect(['index']);
                 } else {
                     Yii::$app->session->setFlash('danger', Module::t('comments-models', 'BACKEND_FLASH_FAIL_ADMIN_UPDATE'));
                     return $this->refresh();
@@ -138,25 +138,6 @@ class ModelsController extends \yii\web\Controller
     {
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
-    }
-
-    /**
-     * Delete multiple models page.
-     *
-     * @return mixed
-     * @throws \yii\web\HttpException
-     */
-    public function actionBatchDelete()
-    {
-        if (($ids = Yii::$app->request->post('ids')) !== null) {
-            $models = $this->findModel($ids);
-            foreach ($models as $model) {
-                $model->delete();
-            }
-            return $this->redirect(['index']);
-        } else {
-            throw new HttpException(400);
-        }
     }
 
     /**
