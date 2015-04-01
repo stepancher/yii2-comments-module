@@ -10,7 +10,6 @@
  */
 
 use stepancher\comments\Module;
-use stepancher\themes\admin\widgets\Box;
 
 $this->title = Module::t('comments-models', 'BACKEND_UPDATE_TITLE');
 $this->params['subtitle'] = Module::t('comments-models', 'BACKEND_UPDATE_SUBTITLE');

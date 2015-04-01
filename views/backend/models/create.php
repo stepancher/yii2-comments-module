@@ -9,7 +9,6 @@
  */
 
 use stepancher\comments\Module;
-use vova07\themes\admin\widgets\Box;
 
 $this->title = Module::t('comments-models', 'BACKEND_CREATE_TITLE');
 $this->params['subtitle'] = Module::t('comments-models', 'BACKEND_CREATE_SUBTITLE');

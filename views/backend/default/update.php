@@ -5,11 +5,9 @@
  *
  * @var \yii\base\View $this View
  * @var \stepancher\comments\models\backend\Comment $model Model
- * @var \backend\themes\admin\widgets\Box $box Box widget instance
  * @var array $statusArray Status array
  */
 
-use stepancher\themes\admin\widgets\Box;
 use stepancher\comments\Module;
 
 $this->title = Module::t('comments', 'BACKEND_UPDATE_TITLE');

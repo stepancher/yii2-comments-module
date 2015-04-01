@@ -6,7 +6,6 @@
  * @var \yii\base\View $this View
  * @var \yii\widgets\ActiveForm $form Form
  * @var \stepancher\comments\models\backend\Model $model Model
- * @var \stepancher\themes\admin\widgets\Box $box Box widget instance
  * @var array $statusArray Statuses array
  */
 

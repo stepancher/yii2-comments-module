@@ -14,7 +14,7 @@ use yii\helpers\Url;
 <?php if ($models !== null) : ?>
     <?php foreach ($models as $comment) : ?>
         <div class="media" data-comment="parent" data-comment-id="<?= $comment->id ?>">
-            <?php $avatar = $comment->author->profile->avatar ? $comment->author->profile->urlAttribute('avatar_url') : Yii::$app->assetManager->publish('@stepancher/themes/site/assets/images/blog/avatar3.png')[1]; ?>
+            <?php $avatar = $comment->author->profile->avatar ? $comment->author->profile->urlAttribute('avatar_url') : Yii::$app->assetManager->publish('@stepancher/comments/assets/images/default_avatar.png')[1]; ?>
             <div class="pull-left">
                 <img src="<?= $avatar ?>" class="avatar img-circle width-50" alt="<?= $comment->author->username ?>"/>
             </div>
