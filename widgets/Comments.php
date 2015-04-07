@@ -15,6 +15,7 @@ class Comments extends Widget
      * @var \yii\db\ActiveRecord|null Widget model
      */
     public $model;
+    public $viewPath='';
 
     /**
      * @var array Comments Javascript plugin options
@@ -40,18 +41,18 @@ class Comments extends Widget
      */
     public function run()
     {
-        $class = $this->model;
 
+        $class = $this->model;
         $class = sprintf("%u", crc32($class::className()));
         $models = Comment::getTree($this->model->id, $class);
         $model = new Comment(['scenario' => 'create']);
         $model->model_class = $class;
         $model->model_id = $this->model->id;
 
-        return $this->render('index', [
+        return $this->render($this->viewPath.'index', [
                 'models' => $models,
-                'model' => $model
-            ]);
+                'model' => $model,
+        ]);
     }
 
     /**
