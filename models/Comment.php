@@ -20,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property integer $created_at Create time
  * @property integer $updated_at Update time
  *
- * @property \stepancher\users\models\User $author Author
+ * @property \common\models\User $author Author
  * @property Model $model Model
  */
 class Comment extends ActiveRecord

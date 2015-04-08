@@ -40,7 +40,7 @@ class Comment extends \stepancher\comments\models\Comment
     public function getCreated()
     {
         if ($this->_created === null) {
-            $this->_created = Yii::$app->formatter->asDate($this->created_at, 'd LLL Y');
+            $this->_created = Yii::$app->formatter->asDate($this->created_at, 'd LLL Y, HH:mm');
         }
 
         return $this->_created;
@@ -52,7 +52,7 @@ class Comment extends \stepancher\comments\models\Comment
     public function getUpdated()
     {
         if ($this->_updated === null) {
-            $this->_updated = Yii::$app->formatter->asDate($this->updated_at, 'd LLL Y');
+            $this->_updated = Yii::$app->formatter->asDate($this->updated_at, 'd LLL Y, HH:mm');
         }
 
         return $this->_updated;

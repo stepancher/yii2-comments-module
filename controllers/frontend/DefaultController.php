@@ -134,6 +134,6 @@ class DefaultController extends Controller
     protected function tree($model)
     {
         $models = Comment::getTree($model->model_id, $model->model_class);
-        return $this->renderPartial('@stepancher/comments/widgets/views/_index_item', ['models' => $models]);
+        return $this->renderPartial(Yii::$app->getModule('comments')->widgetViewPath.'_index_item', ['models' => $models]);
     }
 }

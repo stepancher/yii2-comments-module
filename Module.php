@@ -14,11 +14,15 @@ class Module extends \yii\base\Module
      */
     public static $name = 'comments';
 
+    public $widgetViewPath='@app/views/widgets/comments/';
     /**
      * @var boolean Whether module is used for backend or not
      */
     public $isBackend = false;
 
+    /**
+     * @var boolean Whether module is used for backend or not
+     */
     /**
      * @var string Module author
      */
