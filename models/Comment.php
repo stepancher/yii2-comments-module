@@ -235,6 +235,21 @@ class Comment extends ActiveRecord
 
         return $models;
     }
+    /**
+     * Get comments tree.
+     *
+     * @param integer $model
+     * @param integer $class Model class ID
+     *
+     * @return array|\yii\db\ActiveRecord[] Comments tree
+     */
+    public static function getCountComments($model)
+    {
+        return self::find()->where([
+            'model_id' => $model->id,
+            'model_class' => sprintf("%u", crc32($model::className()))
+        ])->count();
+    }
 
     /**
      * Build comments tree.

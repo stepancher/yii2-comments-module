@@ -47,9 +47,13 @@ class Comments extends Widget
         $model->model_class = $class;
         $model->model_id = $this->model->id;
 
+
+        $count = Comment::getCountComments($this->model);
+
         return $this->render(Yii::$app->getModule('comments')->widgetViewPath.'index', [
                 'models' => $models,
                 'model' => $model,
+                'count'=>$count
         ]);
    }
 
