@@ -2,7 +2,9 @@
 
 namespace stepancher\comments\controllers\frontend;
 
+use common\models\Rate;
 use stepancher\comments\models\frontend\Comment;
+use stepancher\comments\models\Model;
 use stepancher\comments\Module;
 use Yii;
 use yii\filters\VerbFilter;
@@ -46,6 +48,11 @@ class DefaultController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->save(false)) {
+                    if(Yii::$app->getModule('comments')->allowRate) {
+                        $modelClass = Model::findOne(['id' => Yii::$app->request->post('Comment')['model_class']]);
+                        $modelDestination = call_user_func([$modelClass->name, 'findOne'], [Yii::$app->request->post('Comment')['model_id']]);
+                        Rate::setRating($modelDestination, Yii::$app->request->post('Comment')['rating'], $model);
+                    }
                     return $this->tree($model);
                 } else {
                     Yii::$app->response->setStatusCode(500);

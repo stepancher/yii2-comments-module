@@ -35,6 +35,11 @@ class Comment extends \stepancher\comments\models\Comment
     private $_updated;
 
     /**
+     * @var float $rating
+     */
+    public $rating;
+
+    /**
      * @return string Created date
      */
     public function getCreated()
@@ -64,7 +69,7 @@ class Comment extends \stepancher\comments\models\Comment
     public function scenarios()
     {
         return [
-            'create' => ['parent_id', 'model_class', 'model_id', 'content'],
+            'create' => ['parent_id', 'model_class', 'model_id', 'rating', 'content'],
             'update' => ['content'],
         ];
     }
