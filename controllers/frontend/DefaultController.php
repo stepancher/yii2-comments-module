@@ -48,11 +48,15 @@ class DefaultController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->save(false)) {
+
                     if(Yii::$app->getModule('comments')->allowRate) {
-                        $modelClass = Model::findOne(['id' => Yii::$app->request->post('Comment')['model_class']]);
-                        $modelDestination = call_user_func([$modelClass->name, 'findOne'], [Yii::$app->request->post('Comment')['model_id']]);
-                        Rate::setRating($modelDestination, Yii::$app->request->post('Comment')['rating'], $model);
+                        if(!Yii::$app->request->post('Comment')['parent_id']) {
+                            $modelClass = Model::findOne(['id' => Yii::$app->request->post('Comment')['model_class']]);
+                            $modelDestination = call_user_func([$modelClass->name, 'findOne'], [Yii::$app->request->post('Comment')['model_id']]);
+                            Rate::setRating($modelDestination, Yii::$app->request->post('rating'), $model);
+                        }
                     }
+
                     return $this->tree($model);
                 } else {
                     Yii::$app->response->setStatusCode(500);
