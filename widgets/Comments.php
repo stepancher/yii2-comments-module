@@ -17,6 +17,11 @@ class Comments extends Widget
     public $model;
 
     /**
+     * @var string прим. "Обсуждение пользователей/Комментарии"
+     */
+    public $title;
+
+    /**
      * @var array Comments Javascript plugin options
      */
     public $jsOptions = [];
@@ -51,6 +56,7 @@ class Comments extends Widget
         $count = Comment::getCountComments($this->model);
 
         return $this->render(Yii::$app->getModule('comments')->widgetViewPath.'index', [
+                'title' => $this->title,
                 'models' => $models,
                 'model' => $model,
                 'count'=>$count
