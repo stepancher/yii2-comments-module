@@ -14,7 +14,7 @@ class Module extends \yii\base\Module
      */
     public static $name = 'comments';
 
-    public $widgetViewPath='@app/views/widgets/comments/';
+    public $widgetViewPath='./';
 
     public $allowRate = false;
     /**
