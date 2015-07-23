@@ -48,7 +48,6 @@ class DefaultController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->save(false)) {
-
                     if(Yii::$app->getModule('comments')->allowRate) {
                         if(!Yii::$app->request->post('Comment')['parent_id']) {
                             $modelClass = Model::findOne(['id' => Yii::$app->request->post('Comment')['model_class']]);
@@ -56,7 +55,6 @@ class DefaultController extends Controller
                             Rate::setRating($modelDestination, Yii::$app->request->post('rating'), $model);
                         }
                     }
-
                     return $this->tree($model);
                 } else {
                     Yii::$app->response->setStatusCode(500);
@@ -144,7 +142,11 @@ class DefaultController extends Controller
      */
     protected function tree($model)
     {
+        $viewPath =  Yii::$app->request->post('viewPath');
+        if($viewPath===null){
+            $viewPath = Yii::$app->getModule('comments')->widgetViewPath;
+        }
         $models = Comment::getTree($model->model_id, $model->model_class);
-        return $this->renderPartial(Yii::$app->getModule('comments')->widgetViewPath.'_index_item', ['models' => $models]);
+        return $this->renderPartial($viewPath.'_index_item', ['models' => $models]);
     }
 }
