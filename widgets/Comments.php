@@ -26,6 +26,7 @@ class Comments extends Widget
      */
     public $jsOptions = [];
 
+    public $viewPath = null;
     /**
      * @inheritdoc
      */
@@ -55,7 +56,8 @@ class Comments extends Widget
 
         $count = Comment::getCountComments($this->model);
 
-        return $this->render(Yii::$app->getModule('comments')->widgetViewPath.'index', [
+        $viewPath = $this->viewPath!==null?$this->viewPath:Yii::$app->getModule('comments')->widgetViewPath;
+        return $this->render($viewPath.'index', [
                 'title' => $this->title,
                 'models' => $models,
                 'model' => $model,
