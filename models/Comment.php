@@ -222,19 +222,27 @@ class Comment extends ActiveRecord
      *
      * @return array|\yii\db\ActiveRecord[] Comments tree
      */
-    public static function getTree($model, $class)
+    public static function getTree($model, $class, $author_id = null)
     {
-        $models = self::find()->where([
-            'model_id' => $model,
-            'model_class' => $class
-        ])->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])->with(['author'])->all();
-
+        if ($author_id === null) {
+            $models = self::find()->where([
+                'model_id' => $model,
+                'model_class' => $class
+            ])->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])->with(['author'])->all();
+        } else {
+            $models = self::find()->where([
+                'model_id' => $model,
+                'model_class' => $class,
+                'author_id' => $author_id
+            ])->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])->with(['author'])->all();
+        }
         if ($models !== null) {
             $models = self::buildTree($models);
         }
 
         return $models;
     }
+
     /**
      * Get comments tree.
      *
@@ -243,12 +251,20 @@ class Comment extends ActiveRecord
      *
      * @return array|\yii\db\ActiveRecord[] Comments tree
      */
-    public static function getCountComments($model)
+    public static function getCountComments($model, $author_id = null)
     {
-        return self::find()->where([
-            'model_id' => $model->id,
-            'model_class' => sprintf("%u", crc32($model::className()))
-        ])->count();
+        if ($author_id === null) {
+            return self::find()->where([
+                'model_id' => $model->id,
+                'model_class' => sprintf("%u", crc32($model::className()))
+            ])->count();
+        } else {
+            return self::find()->where([
+                'model_id' => $model->id,
+                'author_id'=>$author_id,
+                'model_class' => sprintf("%u", crc32($model::className()))
+            ])->count();
+        }
     }
 
     /**

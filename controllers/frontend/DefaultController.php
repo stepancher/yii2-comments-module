@@ -45,10 +45,12 @@ class DefaultController extends Controller
         $model = new Comment(['scenario' => 'create']);
         Yii::$app->response->format = Response::FORMAT_JSON;
 
+
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->save(false)) {
-                    if(Yii::$app->getModule('comments')->allowRate) {
+
+                    if(Yii::$app->getModule('comments')->allowRate && Yii::$app->request->post('rating')!==null) {
                         if(!Yii::$app->request->post('Comment')['parent_id']) {
                             $modelClass = Model::findOne(['id' => Yii::$app->request->post('Comment')['model_class']]);
                             $modelDestination = call_user_func([$modelClass->name, 'findOne'], [Yii::$app->request->post('Comment')['model_id']]);
@@ -143,10 +145,11 @@ class DefaultController extends Controller
     protected function tree($model)
     {
         $viewPath =  Yii::$app->request->post('viewPath');
+        $author_id =  Yii::$app->request->post('author_id');
         if($viewPath===null){
             $viewPath = Yii::$app->getModule('comments')->widgetViewPath;
         }
-        $models = Comment::getTree($model->model_id, $model->model_class);
+        $models = Comment::getTree($model->model_id, $model->model_class, $author_id);
         return $this->renderPartial($viewPath.'_index_item', ['models' => $models]);
     }
 }

@@ -21,12 +21,16 @@ class Comments extends Widget
      */
     public $title;
 
+    public $author_id = null;
+
+
     /**
      * @var array Comments Javascript plugin options
      */
     public $jsOptions = [];
 
     public $viewPath = null;
+
     /**
      * @inheritdoc
      */
@@ -48,22 +52,23 @@ class Comments extends Widget
     {
         $class = $this->model;
         $class = sprintf("%u", crc32($class::className()));
-        $models = Comment::getTree($this->model->id, $class);
+        $models = Comment::getTree($this->model->id, $class, $this->author_id);
         $model = new Comment(['scenario' => 'create']);
         $model->model_class = $class;
         $model->model_id = $this->model->id;
 
 
-        $count = Comment::getCountComments($this->model);
+        $count = Comment::getCountComments($this->model, $this->author_id);
 
-        $viewPath = $this->viewPath!==null?$this->viewPath:Yii::$app->getModule('comments')->widgetViewPath;
-        return $this->render($viewPath.'index', [
-                'title' => $this->title,
-                'models' => $models,
-                'model' => $model,
-                'count'=>$count
+        $viewPath = $this->viewPath !== null ? $this->viewPath : Yii::$app->getModule('comments')->widgetViewPath;
+        return $this->render($viewPath . 'index', [
+            'title' => $this->title,
+            'models' => $models,
+            'model' => $model,
+            'count' => $count,
+            'author_id' => $this->author_id
         ]);
-   }
+    }
 
     /**
      * Register widget client scripts.

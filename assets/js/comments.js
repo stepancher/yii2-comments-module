@@ -159,6 +159,7 @@
 
     // AJAX create form submit
     $(document).on('submit', '[data-comment-action="create"]', function (evt) {
+        var form = $(this);
         evt.preventDefault();
 
         var data = $.data(document, 'comments'),
@@ -182,9 +183,21 @@
                 }
             },
             success: function (response, status, xhr) {
-                $(data.listSelector).html(response);
+                var box = form.attr('data-comment-box');
+                //console.log(data.listSelector);
+                if(box!=null) {
+                    $(box).html(response);
+                }else{
+                    $(data.listSelector).html(response);
+                }
                 $.comments('clearErrors', $this);
                 $this.trigger('reset');
+                //console.log(form.attr('data-single'));
+
+                if(form.attr('data-single')){
+                    form.remove();
+                    $('#order-link-text').html('Вы оставили отзыв');
+                }
             }
         });
     });
