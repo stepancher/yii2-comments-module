@@ -45,7 +45,7 @@ class Comment extends \stepancher\comments\models\Comment
     public function getCreated()
     {
         if ($this->_created === null) {
-            $this->_created = Yii::$app->formatter->asDate($this->created_at, 'd LLL Y, HH:mm');
+            $this->_created = Yii::$app->formatter->asDate($this->created_at, 'd MMMM Y, HH:mm');
         }
 
         return $this->_created;
