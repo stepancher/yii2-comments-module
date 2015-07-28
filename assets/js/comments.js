@@ -61,7 +61,7 @@
         $form.attr('action', $this.data('comment-url'));
         $form.attr('data-comment-action', 'reply');
         $form.find('[data-comment="parent-id"]').val($this.data('comment-id'));
-
+        $form.find('.rate').remove();
         $append.append($form);
     });
 
