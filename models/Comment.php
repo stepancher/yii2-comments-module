@@ -267,13 +267,15 @@ class Comment extends ActiveRecord
         if ($author_id === null) {
             return self::find()->where([
                 'model_id' => $model->id,
-                'model_class' => sprintf("%u", crc32($model::className()))
+                'model_class' => sprintf("%u", crc32($model::className())),
+                'status'=>self::STATUS_ACTIVE
             ])->count();
         } else {
             return self::find()->where([
                 'model_id' => $model->id,
                 'author_id'=>$author_id,
-                'model_class' => sprintf("%u", crc32($model::className()))
+                'model_class' => sprintf("%u", crc32($model::className())),
+                'status'=>self::STATUS_ACTIVE
             ])->count();
         }
     }
