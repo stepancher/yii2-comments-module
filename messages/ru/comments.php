@@ -50,6 +50,7 @@ return [
     'STATUS_ACTIVE' => 'Активен',
     'STATUS_BANNED' => 'Забанен',
     'STATUS_DELETED' => 'Удалён',
+    'STATUS_MODER' => 'На модерации',
     'Create model'=>'Создать модель',
     ''=>'',
     ''=>'',

@@ -196,7 +196,8 @@
 
                 if(form.attr('data-single')){
                     form.remove();
-                    $('#order-link-text').html('Вы оставили отзыв');
+                    $('#comment-update-text').html('Вы оставили отзыв');
+                    $('#comment-hidden-text').removeClass('hidden');
                 }
             }
         });

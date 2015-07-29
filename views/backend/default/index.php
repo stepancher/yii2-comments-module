@@ -54,7 +54,18 @@ $this->params['breadcrumbs'] = [
                         'attribute' => 'status_id',
                         'format' => 'html',
                         'value' => function ($model) {
-                            $class = ($model->status_id === $model::STATUS_ACTIVE) ? 'label-success' : 'label-danger';
+                            $class = 'label-success' ;
+                            switch($model->status_id){
+                                case $model::STATUS_ACTIVE:{
+                                    $class = 'label-success';
+                                } break;
+                                case $model::STATUS_MODER:{
+                                    $class = 'label-warning';
+                                } break;
+                                default:{
+                                    $class = 'label-danger';
+                                } break;
+                            }
 
                             return '<span class="label ' . $class . '">' . $model->status . '</span>';
                         },

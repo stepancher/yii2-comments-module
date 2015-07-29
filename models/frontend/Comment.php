@@ -69,7 +69,7 @@ class Comment extends \stepancher\comments\models\Comment
     public function scenarios()
     {
         return [
-            'create' => ['parent_id', 'model_class', 'model_id', 'rating', 'content'],
+            'create' => ['parent_id', 'model_class', 'model_id', 'rating', 'content','status_id'],
             'update' => ['content'],
         ];
     }

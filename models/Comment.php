@@ -32,6 +32,8 @@ class Comment extends ActiveRecord
     /** Status deleted */
     const STATUS_DELETED = 2;
 
+    const STATUS_MODER = 3;
+
     /**
      * @var null|array|\yii\db\ActiveRecord[] Comment children
      */
@@ -65,7 +67,8 @@ class Comment extends ActiveRecord
         return [
             self::STATUS_BANNED => Module::t('comments', 'STATUS_BANNED'),
             self::STATUS_ACTIVE => Module::t('comments', 'STATUS_ACTIVE'),
-            self::STATUS_DELETED => Module::t('comments', 'STATUS_DELETED')
+            self::STATUS_DELETED => Module::t('comments', 'STATUS_DELETED'),
+            self::STATUS_MODER => Module::t('comments', 'STATUS_MODER')
         ];
     }
 
@@ -119,6 +122,14 @@ class Comment extends ActiveRecord
     public function getIsDeleted()
     {
         return $this->status_id === self::STATUS_DELETED;
+    }
+
+    /**
+     * @return boolean Whether comment is deleted or not
+     */
+    public function getIsModer()
+    {
+        return $this->status_id === self::STATUS_MODER;
     }
 
     /**
