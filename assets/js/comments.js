@@ -199,6 +199,8 @@
                     $('#comment-update-text').html('Вы оставили отзыв');
                     $('#comment-hidden-text').removeClass('hidden');
                 }
+                $(document).trigger('stepancher-comment-create-success');
+
             }
         });
     });
