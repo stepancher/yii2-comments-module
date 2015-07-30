@@ -19,7 +19,7 @@ use Yii;
  * @property string $created Human readable created time
  * @property string $updated Human readable updated time
  *
- * @property \stepancher\users\models\User $author Author
+ * @property \common\models\User $author Author
  * @property Model $model Model
  */
 class Comment extends \stepancher\comments\models\Comment

@@ -198,7 +198,7 @@ class Comment extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return User
      */
     public function getAuthor()
     {
@@ -262,22 +262,22 @@ class Comment extends ActiveRecord
      *
      * @return array|\yii\db\ActiveRecord[] Comments tree
      */
-    public static function getCountComments($model, $author_id = null)
+    public static function getCountComments($model, $author_id = null, $status_id = null)
     {
-        if ($author_id === null) {
-            return self::find()->where([
-                'model_id' => $model->id,
-                'model_class' => sprintf("%u", crc32($model::className())),
-                'status_id'=>self::STATUS_ACTIVE
-            ])->count();
-        } else {
-            return self::find()->where([
-                'model_id' => $model->id,
-                'author_id'=>$author_id,
-                'model_class' => sprintf("%u", crc32($model::className())),
-                'status_id'=>self::STATUS_ACTIVE
-            ])->count();
+        $where = [
+            'model_id' => $model->id,
+            'model_class' => sprintf("%u", crc32($model::className())),
+        ];
+
+        if ($author_id !== null) {
+            $where['author_id'] = $author_id;
         }
+        if ($status_id !== null) {
+            $where['status_id'] = $status_id;
+        }else{
+            $where['status_id'] = Comment::STATUS_ACTIVE;
+        }
+        return self::find()->where($where)->count();
     }
 
     /**
