@@ -21,17 +21,10 @@ $this->params['breadcrumbs'] = [
 ];
 
 ?>
-<div class="box">
-    <div class="row">
-        <div class="col-sm-4">
-            <?= $this->render(
-                '_form',
-                [
-                    'model' => $model,
-                    'statusArray' => $statusArray
-                ]
-            );?>
-
-        </div>
-    </div>
-</div>
+<?= $this->render(
+    '_form',
+    [
+        'model' => $model,
+        'statusArray' => $statusArray
+    ]
+);?>

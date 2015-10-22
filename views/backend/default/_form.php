@@ -15,17 +15,27 @@ use yii\widgets\ActiveForm;
 
 ?>
 <?php $form = ActiveForm::begin(); ?>
-    <div class="panel-body no-padding-b">
-        <div class="col-sm-12">
-            <?= $form->field($model, 'status_id')->dropDownList($statusArray, ['prompt' => Module::t('comments', 'BACKEND_PROMPT_STATUS')]) ?>
-            <?= $form->field($model, 'content')->textarea() ?>
 
-        <?= Html::submitButton(
-            $model->isNewRecord ? Module::t('comments', 'BACKEND_CREATE_SUBMIT') : Module::t('comments', 'BACKEND_UPDATE_SUBMIT'),
-            [
-                'class' => 'btn btn-primary'
-            ]
-        ) ?>
+    <div class="box">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <?= $form->field($model, 'status_id')->dropDownList($statusArray, ['prompt' => Module::t('comments', 'BACKEND_PROMPT_STATUS')]) ?>
+                </div>
+                <div class="col-sm-6">
+                    <?= $form->field($model, 'content')->textarea() ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer text-left">
+            <?= Html::submitButton(
+                $model->isNewRecord ? Module::t('comments', 'BACKEND_CREATE_SUBMIT') : Module::t('comments', 'BACKEND_UPDATE_SUBMIT'),
+                [
+                    'class' => 'btn btn-primary'
+                ]
+            ) ?>
         </div>
     </div>
+
 <?php ActiveForm::end(); ?>
