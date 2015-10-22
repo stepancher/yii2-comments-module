@@ -12,7 +12,8 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-	    "vova07/yii2-start-themes": "*"
+	    "vova07/yii2-start-themes": "*",
+        "kartik-v/yii2-dynagrid": "@dev"
     },
     "autoload": {
         "psr-4": {

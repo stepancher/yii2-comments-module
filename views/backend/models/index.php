@@ -8,7 +8,8 @@
  */
 
 use stepancher\comments\Module;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use kartik\dynagrid\DynaGrid;
 
 use yii\grid\ActionColumn;
 use yii\helpers\Html;
@@ -19,56 +20,100 @@ $this->params['breadcrumbs'] = [
     $this->title
 ];
 
+$columns = [
+    ['class' => 'kartik\grid\SerialColumn', 'order' => DynaGrid::ORDER_FIX_LEFT],
+    'id',
+    'name',
+    [
+        'attribute' => 'status_id',
+        'format' => 'html',
+        'value' => function ($model) {
+            $class = ($model->status_id === $model::STATUS_ENABLED) ? 'label-success' : 'label-danger';
+
+            return '<span class="label ' . $class . '">' . $model->status . '</span>';
+        },
+        'filterType' => GridView::FILTER_SELECT2,
+        'filter' => $statusArray,
+        'filterWidgetOptions' => [
+        'pluginOptions' => ['allowClear' => true],
+],
+        'filterInputOptions' => ['placeholder' => '---'],
+    ],
+    [
+        'attribute' => 'created_at',
+        'format' => 'date',
+    ],
+    [
+        'attribute' => 'updated_at',
+        'format' => 'date',
+    ],
+    [
+        'class' => 'yii\grid\ActionColumn',
+        'template' => '<nobr>{update}{delete}</nobr>',
+        'buttons' => [
+            'update' => function($url, $model) {
+                return Html::a('<span class="icon fa fa-edit"></span>', $url, [
+                    'class' => 'btn btn-sm btn-primary'
+                ]);
+            },
+            'delete' => function($url, $model) {
+                return Html::a('<span class="icon fa fa-trash"></span>', $url, [
+                    'class' => 'btn btn-sm btn-danger isDel'
+                ]);
+            },
+        ]
+    ],
+];
+
+$dynaGridOptions = [
+    'columns' => $columns,
+    'gridOptions' => [
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'panel' => [
+            'before' => Html::a('<i class="btn-label glyphicon fa fa-plus"></i> &nbsp&nbsp' . Module::t('comments-models','BACKEND_CREATE_SUBTITLE'), ['create'], ['class' => 'btn btn-labeled btn-success no-margin-t']),
+            'after' => '<div class="pull-right">{pager}</div>',
+        ],
+    ],
+    'options' => ['id' => 'dynagrid-comments-models'],
+];
+
+if (class_exists('\stepancher\adminlteTheme\config\AnminLteThemeConfig')) {
+    DynaGrid::begin(\yii\helpers\ArrayHelper::merge(\stepancher\adminlteTheme\config\AnminLteThemeConfig::getDefaultConfigDynagrid(), $dynaGridOptions));
+} else {
+    DynaGrid::begin([
+        'columns' => $columns,
+        'toggleButtonGrid' => [
+            'label' => '<i class="glyphicon glyphicon-wrench"></i> &nbsp&nbspНастройки',
+        ],
+        'toggleButtonFilter' => [
+            'label' => '<i class="glyphicon glyphicon-filter"></i> &nbsp&nbsp Фильтры',
+        ],
+        'toggleButtonSort' => [
+            'label' => '<i class="glyphicon glyphicon-sort"></i> &nbsp&nbsp Сортировка',
+        ],
+        'storage' => DynaGrid::TYPE_DB,
+        'gridOptions' => [
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'toolbar' => [
+                [
+                    'content' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Сбросить', [''], ['data-pjax' => 0, 'class' => 'btn btn-default', 'title' => 'Обновить'])
+                ], [
+                    'content' => '{dynagridFilter}{dynagridSort}{dynagrid}{toggleData}',
+                ],
+                '{export}',
+            ],
+            'export' => [
+                'label' => 'Экспорт'
+            ],
+            'panel' => [
+                'before' => Html::a('<i class="btn-label glyphicon fa fa-plus"></i> &nbsp&nbsp' . Module::t('comments-models','BACKEND_CREATE_SUBTITLE'), ['create'], ['class' => 'btn btn-labeled btn-success no-margin-t']),
+                'after' => false,
+            ],
+        ],
+        'options' => ['id' => 'dynagrid-comments-models'],
+    ]);
+}
+DynaGrid::end();
 ?>
-
-<div class="page-header">
-    <div class="panel-heading-controls">
-        <?= Html::a('<i class="btn-label icon fa fa-plus"></i> '.Module::t('comments-models','BACKEND_CREATE_SUBTITLE'), ['create'], ['class' => 'btn btn-labeled btn-primary no-margin-t']) ?>
-    </div>
-</div>
-<div class="box">
-    <div class="row">
-        <div class="col-xs-12">
-            <?= GridView::widget([
-                'id' => 'comments-models-grid',
-                'dataProvider' => $dataProvider,
-                'filterModel' => $searchModel,
-                'layout' => "<div class='box-body'>{items}</div><div class='box-footer'><div class='row'><div class='col-sm-6'>{summary}</div><div class='col-sm-6'>{pager}</div></div></div>",
-                'columns' => [
-                    'id',
-                    'name',
-                    [
-                        'attribute' => 'status_id',
-                        'format' => 'html',
-                        'value' => function ($model) {
-                            $class = ($model->status_id === $model::STATUS_ENABLED) ? 'label-success' : 'label-danger';
-
-                            return '<span class="label ' . $class . '">' . $model->status . '</span>';
-                        },
-                        'filter' => Html::activeDropDownList(
-                            $searchModel,
-                            'status_id',
-                            $statusArray,
-                            [
-                                'class' => 'form-control',
-                                'prompt' => Module::t('comments', 'BACKEND_PROMPT_STATUS')
-                            ]
-                        )
-                    ],
-                    [
-                        'attribute' => 'created_at',
-                        'format' => 'date',
-                    ],
-                    [
-                        'attribute' => 'updated_at',
-                        'format' => 'date',
-                    ],
-                    [
-                        'class' =>ActionColumn::className(),
-                        'template' => '{update}{delete}',
-                    ],
-                ]
-            ]); ?>
-        </div>
-    </div>
-</div>
