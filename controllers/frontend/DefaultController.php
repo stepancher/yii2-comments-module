@@ -2,10 +2,10 @@
 
 namespace stepancher\comments\controllers\frontend;
 
-//use common\models\Rate;
 use stepancher\comments\models\frontend\Comment;
 use stepancher\comments\models\Model;
 use stepancher\comments\Module;
+use ubasma\rating\models\Rate;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -49,13 +49,28 @@ class DefaultController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                if ($model->save(false)) {
+                $modelClass = Model::findOne(['id' => Yii::$app->request->post('Comment')['model_class']]);
+
+                //Проверяем может ли пользователь комментарий
+                if(method_exists($modelClass->name, 'checkCanComment')) {
+                    $canComment = call_user_func_array([$modelClass->name, 'checkCanComment'],
+                        [Yii::$app->request->post('Comment')['model_id'], Yii::$app->getUser()->id]);
+                } else {
+                    $canComment = true;
+                }
+
+                if ($canComment && $model->save(false)) {
 
                     if(Yii::$app->getModule('comments')->allowRate && Yii::$app->request->post('rating')!==null) {
                         if(!Yii::$app->request->post('Comment')['parent_id']) {
-                            $modelClass = Model::findOne(['id' => Yii::$app->request->post('Comment')['model_class']]);
-                            $modelDestination = call_user_func([$modelClass->name, 'findOne'], [Yii::$app->request->post('Comment')['model_id']]);
-                            Rate::setRating($modelDestination, Yii::$app->request->post('rating'), $model);
+
+                            $modelDestination = call_user_func([$modelClass->name, 'findOne'],
+                                [Yii::$app->request->post('Comment')['model_id']]);
+
+                            call_user_func_array([Yii::$app->getModule('comments')->ratePath . 'Rate', 'setRating'],
+                                [$modelDestination, Yii::$app->request->post('rating'), $model]);
+                            /*Rate::setRating($modelDestination,
+                                Yii::$app->request->post('rating'), $model);*/
                         }
                     }
                     return $this->tree($model);

@@ -68,7 +68,7 @@ class Module extends \yii\base\Module
      */
     protected function getDefaultModelRate()
     {
-        return '\ubasma\rating\models';
+        return '\\ubasma\\rating\\models\\';
     }
 
     /**
