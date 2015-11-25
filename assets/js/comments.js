@@ -102,6 +102,7 @@
         var data = $.data(document, 'comments'),
             $this = $(this);
 
+
         $.ajax({
             url: $(this).attr('action'),
             type: 'PUT',

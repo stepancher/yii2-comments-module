@@ -23,6 +23,11 @@ class Comments extends Widget
 
     public $author_id = null;
 
+    /**
+     * Может ли пользователь оставлять комментарии
+     * @var bool
+     */
+    public $canComment = true;
 
     /**
      * @var array Comments Javascript plugin options
@@ -66,7 +71,9 @@ class Comments extends Widget
             'models' => $models,
             'model' => $model,
             'count' => $count,
-            'author_id' => $this->author_id
+            'author_id' => $this->author_id,
+            'current_model' => $this->model,
+            'canComment' => $this->canComment,
         ]);
     }
 

@@ -2,7 +2,7 @@
 
 namespace stepancher\comments\controllers\frontend;
 
-use common\models\Rate;
+//use common\models\Rate;
 use stepancher\comments\models\frontend\Comment;
 use stepancher\comments\models\Model;
 use stepancher\comments\Module;
@@ -44,6 +44,7 @@ class DefaultController extends Controller
     {
         $model = new Comment(['scenario' => 'create']);
         Yii::$app->response->format = Response::FORMAT_JSON;
+
 
 
         if ($model->load(Yii::$app->request->post())) {

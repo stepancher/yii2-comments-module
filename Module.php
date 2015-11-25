@@ -16,6 +16,12 @@ class Module extends \yii\base\Module
 
     public $widgetViewPath='./';
 
+    /**
+     * Путь до папки модуля рейтинга
+     * @var string
+     */
+    public $ratePath = '';
+
     public $allowRate = false;
     /**
      * @var boolean Whether module is used for backend or not
@@ -39,6 +45,9 @@ class Module extends \yii\base\Module
             throw new InvalidConfigException('The "name" property must be set.');
         }
 
+
+        $this->ratePath = $this->ratePath ? $this->ratePath : $this->getDefaultModelRate();
+
         if ($this->isBackend === true) {
             $this->setViewPath('@' . static::$author . '/' . static::$name . '/views/backend');
             if ($this->controllerNamespace === null) {
@@ -52,6 +61,14 @@ class Module extends \yii\base\Module
         }
 
         parent::init();
+    }
+
+    /**
+     * Get default model Rating
+     */
+    protected function getDefaultModelRate()
+    {
+        return '\ubasma\rating\models';
     }
 
     /**
