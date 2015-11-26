@@ -45,13 +45,11 @@ class DefaultController extends Controller
         $model = new Comment(['scenario' => 'create']);
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-
-
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 $modelClass = Model::findOne(['id' => Yii::$app->request->post('Comment')['model_class']]);
 
-                //Проверяем может ли пользователь комментарий
+                //Проверяем может ли пользователь оставлять комментарий
                 if(method_exists($modelClass->name, 'checkCanComment')) {
                     $canComment = call_user_func_array([$modelClass->name, 'checkCanComment'],
                         [Yii::$app->request->post('Comment')['model_id'], Yii::$app->getUser()->id]);

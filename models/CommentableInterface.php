@@ -9,7 +9,7 @@
 namespace stepancher\comments\models;
 
 
-interface Commentable
+interface CommentableInterface
 {
     /**
      * Может ли пользователь оставлять комментарии
