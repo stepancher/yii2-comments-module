@@ -62,7 +62,6 @@ class Comments extends Widget
         $model->model_class = $class;
         $model->model_id = $this->model->id;
 
-
         $count = Comment::getCountComments($this->model, $this->author_id);
 
         $viewPath = $this->viewPath !== null ? $this->viewPath : Yii::$app->getModule('comments')->widgetViewPath;

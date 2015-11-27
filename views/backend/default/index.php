@@ -87,7 +87,9 @@ $columns = [
             },
             'delete' => function($url, $model) {
                 return Html::a('<span class="icon fa fa-trash"></span>', $url, [
-                    'class' => 'btn btn-sm btn-danger isDel'
+                    'class' => 'btn btn-sm btn-danger isDel',
+                    'data-method' => 'post',
+                    'data-pjax' => 0,
                 ]);
             },
         ]

@@ -239,7 +239,11 @@ class Comment extends ActiveRecord
             $models = self::find()->where([
                 'model_id' => $model,
                 'model_class' => $class
-            ])->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])->with(['author'])->all();
+            ])
+                ->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])
+                ->with(['author'])
+                ->with(['class'])
+                ->all();
         } else {
             $models = self::find()->where([
                 'model_id' => $model,
