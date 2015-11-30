@@ -318,4 +318,30 @@ class Comment extends ActiveRecord
         $this->content = '';
         return $this->save(false, ['status_id', 'content']);
     }
+
+    /**
+     * Возвращаем последний комментарий пользователя
+     * @param int $idUser
+     * @param int|string $classModel
+     * @param int|string $idModel
+     * @return array|null|ActiveRecord
+     */
+    public static function lastUserComment($idUser, $model) {
+
+        $modelId = Model::find()
+            ->select('id')
+            ->where(['name' => $model->name])
+            ->scalar();
+        return Comment::find()
+            ->where([
+                'author_id' => $idUser,
+                'status_id' => Comment::STATUS_ACTIVE,
+                'model_class' => $modelId,
+                'model_id' => $model->id
+            ])
+            ->orderBy('created_at DESC')
+            ->limit(1)
+            ->asArray()
+            ->one();
+    }
 }
