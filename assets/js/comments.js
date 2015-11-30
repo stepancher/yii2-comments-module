@@ -163,6 +163,7 @@
         var form = $(this);
         evt.preventDefault();
 
+
         var data = $.data(document, 'comments'),
             $this = $(this);
 

@@ -37,6 +37,12 @@ class Comments extends Widget
     public $viewPath = null;
 
     /**
+     * Сообщения с определенным статусом
+     * @var null
+     */
+    public $status = null;
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -57,7 +63,7 @@ class Comments extends Widget
     {
         $class = $this->model;
         $class = sprintf("%u", crc32($class::className()));
-        $models = Comment::getTree($this->model->id, $class, $this->author_id);
+        $models = Comment::getTree($this->model->id, $class, $this->author_id, $this->status);
         $model = new Comment(['scenario' => 'create']);
         $model->model_class = $class;
         $model->model_id = $this->model->id;

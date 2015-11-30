@@ -230,17 +230,20 @@ class Comment extends ActiveRecord
      *
      * @param integer $model Model ID
      * @param integer $class Model class ID
-     *
-     * @return array|\yii\db\ActiveRecord[] Comments tree
+     * @param null|int $status
+     * @return array|\yii\db\ActiveRecord[]
      */
-    public static function getTree($model, $class, $author_id = null)
+    public static function getTree($model, $class, $author_id = null, $status = null)
     {
         if ($author_id === null) {
             $models = self::find()->where([
                 'model_id' => $model,
-                'model_class' => $class
-            ])
-                ->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])
+                'model_class' => $class,
+            ]);
+            if (!is_null($status)) {
+                $models = $models->andWhere(['status_id' => $status]);
+            }
+            $models = $models->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])
                 ->with(['author'])
                 ->with(['class'])
                 ->all();
@@ -248,8 +251,12 @@ class Comment extends ActiveRecord
             $models = self::find()->where([
                 'model_id' => $model,
                 'model_class' => $class,
-                'author_id' => $author_id
-            ])->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])->with(['author'])->all();
+                'author_id' => $author_id,
+            ]);
+            if (!is_null($status)) {
+                $models = $models->andWhere(['status_id' => $status]);
+            }
+            $models->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])->with(['author'])->all();
         }
         if ($models !== null) {
             $models = self::buildTree($models);
@@ -259,12 +266,11 @@ class Comment extends ActiveRecord
     }
 
     /**
-     * Get comments tree.
-     *
-     * @param integer $model
-     * @param integer $class Model class ID
-     *
-     * @return array|\yii\db\ActiveRecord[] Comments tree
+     *  Get comments tree.
+     * @param $model
+     * @param int|null $author_id
+     * @param int|null $status_id
+     * @return int|string
      */
     public static function getCountComments($model, $author_id = null, $status_id = null)
     {
@@ -281,6 +287,7 @@ class Comment extends ActiveRecord
         }else{
             $where['status_id'] = Comment::STATUS_ACTIVE;
         }
+
         return self::find()->where($where)->count();
     }
 
@@ -322,20 +329,18 @@ class Comment extends ActiveRecord
     /**
      * Возвращаем последний комментарий пользователя
      * @param int $idUser
-     * @param int|string $classModel
-     * @param int|string $idModel
+     * @param model
      * @return array|null|ActiveRecord
      */
-    public static function lastUserComment($idUser, $model) {
-
+    public static function lastUserComment($idUser, $model, $status) {
         $modelId = Model::find()
             ->select('id')
-            ->where(['name' => $model->name])
+            ->where(['name' => $model::className()])
             ->scalar();
         return Comment::find()
             ->where([
                 'author_id' => $idUser,
-                'status_id' => Comment::STATUS_ACTIVE,
+                'status_id' => $status,
                 'model_class' => $modelId,
                 'model_id' => $model->id
             ])
