@@ -131,7 +131,12 @@ class Model extends ActiveRecord
      */
     public function beforeSave($insert)
     {
+
         if (parent::beforeSave($insert)) {
+            echo '<pre>';
+            var_dump($this->scenarios());
+            echo '</pre>';
+            exit;
             $this->id = sprintf("%u", crc32($this->name));
 
             return true;

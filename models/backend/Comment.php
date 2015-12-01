@@ -9,10 +9,11 @@ namespace stepancher\comments\models\backend;
  * @property integer $model_class Model class ID
  * @property integer $model_id Model ID
  * @property integer $author_id Author ID
- * @property string $content Content
+ * @property string  $content Content
  * @property integer $status_id Status
  * @property integer $created_at Create time
  * @property integer $updated_at Update time
+ * @property bool $moderator Update comment
  *
  * @property \stepancher\users\models\User $author Author
  * @property Model $model Model
@@ -29,4 +30,25 @@ class Comment extends \stepancher\comments\models\Comment
 
         return $scenarios;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+
+        if (parent::beforeSave($insert)) {
+            //если модератор исправил текст сообщения пользователя, ставим moderator = true
+            $oldComment = $this->findOne($this->id);
+
+            if($this->scenario == 'admin-update' && $oldComment->content !== $this->content) {
+                $this->moderator = true;
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
