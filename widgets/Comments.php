@@ -70,6 +70,10 @@ class Comments extends Widget
 
         $count = Comment::getCountComments($this->model, $this->author_id);
 
+        $lastUserComment = Comment::lastUserComment(Yii::$app->getUser()->id,
+            $this->model, Comment::STATUS_ACTIVE);
+
+
         $viewPath = $this->viewPath !== null ? $this->viewPath : Yii::$app->getModule('comments')->widgetViewPath;
         return $this->render($viewPath . 'index', [
             'title' => $this->title,
@@ -79,6 +83,7 @@ class Comments extends Widget
             'author_id' => $this->author_id,
             'current_model' => $this->model,
             'canComment' => $this->canComment,
+            'lastUserComment' => $lastUserComment
         ]);
     }
 

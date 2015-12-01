@@ -160,9 +160,9 @@
 
     // AJAX create form submit
     $(document).on('submit', '[data-comment-action="create"]', function (evt) {
+
         var form = $(this);
         evt.preventDefault();
-
 
         var data = $.data(document, 'comments'),
             $this = $(this);
@@ -187,10 +187,15 @@
             success: function (response, status, xhr) {
                 var box = form.attr('data-comment-box');
                 //console.log(data.listSelector);
-                if(box!=null) {
-                    $(box).html(response);
-                }else{
-                    $(data.listSelector).html(response);
+                console.log(form.attr('data-premoder'));
+                console.log( $(box));
+                console.log($(data.listSelector));
+                if(!form.attr('data-premoder')) {
+                    if (box != null) {
+                        $(box).html(response);
+                    } else {
+                        $(data.listSelector).html(response);
+                    }
                 }
                 $.comments('clearErrors', $this);
                 $this.trigger('reset');

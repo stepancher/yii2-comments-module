@@ -253,11 +253,10 @@ class Comment extends ActiveRecord
                 'model_class' => $class,
                 'author_id' => $author_id,
             ]);
-            if (!is_null($status)) {
-                $models = $models->andWhere(['status_id' => $status]);
-            }
+
             $models->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])->with(['author'])->all();
         }
+
         if ($models !== null) {
             $models = self::buildTree($models);
         }
