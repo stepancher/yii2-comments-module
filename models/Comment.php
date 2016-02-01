@@ -348,4 +348,22 @@ class Comment extends ActiveRecord
             ->asArray()
             ->one();
     }
+
+    /**
+     * Вызываем пользовательский метод - определяется интерфейсом commentableinterface.php
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        $comments_models = Model::find()->where(['id' => $this->model_class])->asArray()->one();
+
+
+        if(!empty($comments_models['name']) && method_exists($comments_models['name'], 'afterSaveComment')) {
+            call_user_func_array([$comments_models['name'], 'afterSaveComment'],
+                [$insert, $changedAttributes, $this->getAttributes(), $comments_models]);
+        }
+
+        parent::afterSave($insert, $changedAttributes);
+    }
 }

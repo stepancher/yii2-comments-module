@@ -18,4 +18,16 @@ interface CommentableInterface
      * @return bool
      */
     public static function checkCanComment($idModel, $idUser);
+
+    /**
+     * Вызов пользовательского метода в afterSave
+     * Отдает параметры из afterSave ($insert, $changedAttributes)
+     * и массивы из таблиц модуля
+     * @param bool $insert
+     * @param array $changedAttributes
+     * @param array $comments
+     * @param array $comments_models
+     * @return mixed
+     */
+    public static function  afterSaveComment($insert, $changedAttributes, $comments, $comments_models);
 }
