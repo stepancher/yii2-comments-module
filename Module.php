@@ -36,6 +36,8 @@ class Module extends \yii\base\Module
      */
     public static $author = 'stepancher';
 
+    public $options = [];
+
     /**
      * @inheritdoc
      */
@@ -59,6 +61,9 @@ class Module extends \yii\base\Module
                 $this->controllerNamespace = static::$author . '\\' . static::$name . '\controllers\frontend';
             }
         }
+
+        //устанавливаем опции
+        $this->options = array_merge(self::getDefaultOptions(), $this->options);
 
         parent::init();
     }
@@ -100,5 +105,15 @@ class Module extends \yii\base\Module
     public static function t($category, $message, $params = [], $language = null)
     {
         return Yii::t(static::$author . '/' . $category, $message, $params, $language);
+    }
+
+    /**
+     * Параметры по умолчанию
+     * @return array
+     */
+    public static function getDefaultOptions(){
+        return [
+            'comments-order' => ['created_at' => SORT_DESC, 'parent_id' => SORT_ASC]
+        ];
     }
 }

@@ -230,31 +230,37 @@ class Comment extends ActiveRecord
      *
      * @param integer $model Model ID
      * @param integer $class Model class ID
+     * @param null $author_id
      * @param null|int $status
+     * @param array $options - другие параметры для работы с выбором комментариев
      * @return array|\yii\db\ActiveRecord[]
      */
-    public static function getTree($model, $class, $author_id = null, $status = null)
+    public static function getTree($model, $class, $author_id = null, $status = null, $options = [])
     {
+        $orderBy = empty($options['comments-order']) ? ['created_at' => SORT_DESC, 'parent_id' => SORT_ASC] : $options['comments-order'];
+
         if ($author_id === null) {
             $models = self::find()->where([
                 'model_id' => $model,
                 'model_class' => $class,
             ]);
             if (!is_null($status)) {
-                $models = $models->andWhere(['status_id' => $status]);
+                $models->andWhere(['status_id' => $status]);
             }
-            $models = $models->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])
+            $models = $models->orderBy($orderBy)
                 ->with(['author'])
                 ->with(['class'])
                 ->all();
         } else {
-            $models = self::find()->where([
-                'model_id' => $model,
-                'model_class' => $class,
-                'author_id' => $author_id,
-            ]);
-
-            $models->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])->with(['author'])->all();
+            $models = self::find()
+                ->where([
+                    'model_id' => $model,
+                    'model_class' => $class,
+                    'author_id' => $author_id,
+                ])
+                ->with(['author'])
+                ->orderBy($orderBy)
+                ->all();
         }
 
         if ($models !== null) {
