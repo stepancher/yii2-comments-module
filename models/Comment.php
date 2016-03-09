@@ -161,7 +161,9 @@ class Comment extends ActiveRecord
     public function rules()
     {
         return [
-            // Require
+            // Require and without html tags
+            ['content', 'filter', 'filter' => 'trim'],
+            ['content', 'filter', 'filter' => 'strip_tags'],
             ['content', 'required'],
             // Parent ID
             [
