@@ -15,9 +15,10 @@ interface CommentableInterface
      * Может ли пользователь оставлять комментарии
      * @param int $idModel
      * @param int $idUser
+     * @param $idParentComment - id родительского комментария
      * @return bool
      */
-    public static function checkCanComment($idModel, $idUser);
+    public static function checkCanComment($idModel, $idUser, $idParentComment);
 
     /**
      * Вызов пользовательского метода в afterSave

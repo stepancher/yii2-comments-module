@@ -12,6 +12,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "{{%comments}}".
  *
  * @property integer $id ID
+ * @property integer $parent_id ID
  * @property integer $model_class Model class ID
  * @property integer $model_id Model ID
  * @property integer $author_id Author ID
