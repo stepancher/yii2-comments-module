@@ -52,7 +52,7 @@ class DefaultController extends Controller
                 //Проверяем может ли пользователь оставлять комментарий
                 if(method_exists($modelClass->name, 'checkCanComment')) {
                     $canComment = call_user_func_array([$modelClass->name, 'checkCanComment'],
-                        [Yii::$app->request->post('Comment')['model_id'], Yii::$app->getUser()->id]);
+                        [Yii::$app->request->post('Comment')['model_id'], Yii::$app->getUser()->id, $model->parent_id, $model->parent_id]);
                 } else {
                     $canComment = true;
                 }
