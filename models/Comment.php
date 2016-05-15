@@ -278,9 +278,10 @@ class Comment extends ActiveRecord
      * @param $model
      * @param int|null $author_id
      * @param int|null $status_id
+     * @param int|array|null|bool $parent_id - FALSE - disabled condition
      * @return int|string
      */
-    public static function getCountComments($model, $author_id = null, $status_id = null)
+    public static function getCountComments($model, $author_id = null, $status_id = null, $parent_id = false)
     {
         $where = [
             'model_id' => $model->id,
@@ -296,6 +297,9 @@ class Comment extends ActiveRecord
             $where['status_id'] = Comment::STATUS_ACTIVE;
         }
 
+        if($parent_id !== false){
+            $where['parent_id'] = $parent_id;
+        }
         return self::find()->where($where)->count();
     }
 
