@@ -163,8 +163,8 @@ class Comment extends ActiveRecord
     {
         return [
             // Require and without html tags
-            ['content', 'filter', 'filter' => 'strip_tags'],
             ['content', 'filter', 'filter' => 'trim'],
+            ['content', 'filter', 'filter' => 'strip_tags'],
             ['content', 'required'],
             // Parent ID
             [
