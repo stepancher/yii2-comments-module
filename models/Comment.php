@@ -341,25 +341,32 @@ class Comment extends ActiveRecord
     /**
      * Возвращаем последний комментарий пользователя
      * @param int $idUser
-     * @param model
+     * @param $model
+     * @param $status
+     * @param bool|int|array $idParent - FALSE - не учитывает родителя
      * @return array|null|ActiveRecord
+     * @internal param $model
      */
-    public static function lastUserComment($idUser, $model, $status) {
+    public static function lastUserComment($idUser, $model, $status, $idParent = false) {
         $modelId = Model::find()
             ->select('id')
             ->where(['name' => $model::className()])
             ->scalar();
-        return Comment::find()
+        $comment = Comment::find()
             ->where([
                 'author_id' => $idUser,
                 'status_id' => $status,
                 'model_class' => $modelId,
-                'model_id' => $model->id
+                'model_id' => $model->id,
             ])
             ->orderBy('created_at DESC')
             ->limit(1)
-            ->asArray()
-            ->one();
+            ->asArray();
+
+        if($idParent !== false){
+            $comment->andWhere(['parent_id' => $idParent]);
+        }
+        return $comment->one();
     }
 
     /**
